@@ -10,15 +10,17 @@ export const users = pgTable("users", {
 
 export const books = pgTable("books", {
   id: serial("id").primaryKey(),
+  isbn13: text("isbn13").notNull(),
+  isbn10: text("isbn10").notNull(),
   title: text("title").notNull(),
-  author: text("author").notNull(),
-  genre: text("genre").notNull(),
-  subgenre: text("subgenre"),
+  authors: text("authors").notNull(),
+  categories: text("categories").notNull(),
+  thumbnail: text("thumbnail").notNull(),
   description: text("description").notNull(),
-  year: integer("year").notNull(),
-  pages: integer("pages").notNull(),
-  rating: doublePrecision("rating").notNull(),
-  imageUrl: text("image_url").notNull(),
+  published_year: integer("published_year").notNull(),
+  average_rating: doublePrecision("average_rating").notNull(),
+  num_pages: integer("num_pages").notNull(),
+  ratings_count: integer("ratings_count").notNull()
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
