@@ -1,4 +1,5 @@
-import { Book } from "@/lib/types";
+
+import { Book } from "@shared/schema";
 import { Star } from "lucide-react";
 
 interface BookCardProps {
@@ -6,10 +7,11 @@ interface BookCardProps {
 }
 
 const BookCard = ({ book }: BookCardProps) => {
-  const { title, authors, categories, description, published_year, num_pages, average_rating, thumbnail, ratings_count } = book;
+  const { title, authors, categories, description, published_year, num_pages, average_rating, thumbnail } = book;
   
   // Generate stars based on rating (scaled to 5 stars)
-  const fullStars = Math.floor(average_rating);
+  const rating = average_rating || 0;
+  const fullStars = Math.floor(rating);
   const remainingStars = 5 - fullStars;
   
   return (
@@ -42,20 +44,16 @@ const BookCard = ({ book }: BookCardProps) => {
               <Star key={`full-${i}`} className="w-4 h-4 fill-current" />
             ))}
             {Array(remainingStars).fill(0).map((_, i) => (
-              <Star key={`empty-${i}`} className="w-4 h-4 text-gray-300" />
+              <Star key={`empty-${i}`} className="w-4 h-4" />
             ))}
           </div>
-          <span className="text-xs ml-1 text-gray-600">({average_rating.toFixed(1)} • {ratings_count} ratings)</span>
+          <span className="ml-2 text-sm text-gray-600">({rating.toFixed(1)})</span>
         </div>
-        <p className="text-xs text-gray-500 mb-3">
-          {categories} • {published_year}
-        </p>
-        <p className="text-sm text-gray-700 mb-3 line-clamp-2">{description}</p>
-        <div className="flex justify-between items-center">
-          <span className="text-primary-700 font-medium text-sm">{num_pages} pages</span>
-          <button className="text-sm px-3 py-1 bg-primary-50 text-primary-700 rounded-full hover:bg-primary-100 transition-colors">
-            + Save
-          </button>
+        <p className="text-sm text-gray-600 mb-2">{categories}</p>
+        <p className="text-sm text-gray-500 line-clamp-3">{description}</p>
+        <div className="mt-4 flex justify-between text-sm text-gray-600">
+          <span>{published_year}</span>
+          <span>{num_pages} pages</span>
         </div>
       </div>
     </div>
