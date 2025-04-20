@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import Header from "@/components/Header";
 import SearchForm from "@/components/SearchForm";
@@ -14,6 +14,27 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
   const [activeFilter, setActiveFilter] = useState<FilterType>("All");
+  const [isSearched, setIsSearched] = useState(false);
+  
+  // Fetch popular books on initial load
+  const { data: popularBooks, isLoading: isLoadingPopular } = useQuery({
+    queryKey: ['/api/popular-books'],
+    queryFn: async () => {
+      // For initial load, we'll use a generic query to get popular recommendations
+      const response = await apiRequest("POST", "/api/recommend", { 
+        query: "popular highly rated books" 
+      });
+      return response.json() as Promise<BookResponse>;
+    },
+    enabled: !isSearched, // Only run this query if user hasn't performed a search yet
+  });
+  
+  // Set popular books when they're loaded
+  useEffect(() => {
+    if (popularBooks && !isSearched) {
+      setBooks(popularBooks.books);
+    }
+  }, [popularBooks, isSearched]);
   
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: async (query: string) => {
@@ -22,6 +43,7 @@ export default function Home() {
     },
     onSuccess: (data) => {
       setBooks(data.books);
+      setIsSearched(true);
     }
   });
 
@@ -43,6 +65,7 @@ export default function Home() {
   });
 
   const hasResults = books.length > 0;
+  const isLoading = isPending || isLoadingPopular;
 
   return (
     <div className="bg-gray-50 font-inter text-gray-800 min-h-screen flex flex-col">
@@ -63,7 +86,7 @@ export default function Home() {
         </section>
 
         <section id="results-section">
-          {isPending && (
+          {isLoading && (
             <div>
               <div className="mb-6 flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -87,7 +110,7 @@ export default function Home() {
             </div>
           )}
 
-          {!isPending && hasResults && (
+          {!isLoading && hasResults && (
             <div>
               <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
                 <h3 className="text-2xl font-playfair font-semibold text-gray-900">
@@ -164,7 +187,7 @@ export default function Home() {
             </div>
           )}
 
-          {!isPending && !hasResults && !isError && (
+          {!isLoading && !hasResults && !isError && (
             <div className="text-center py-12">
               <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
