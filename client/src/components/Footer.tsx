@@ -23,22 +23,22 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link href="/">
-                  <a className="text-gray-400 hover:text-white transition-colors">Home</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">Home</div>
                 </Link>
               </li>
               <li>
                 <Link href="/discover">
-                  <a className="text-gray-400 hover:text-white transition-colors">Discover</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">Discover</div>
                 </Link>
               </li>
               <li>
                 <Link href="/library">
-                  <a className="text-gray-400 hover:text-white transition-colors">My Library</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">My Library</div>
                 </Link>
               </li>
               <li>
                 <Link href="/about">
-                  <a className="text-gray-400 hover:text-white transition-colors">About</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">About</div>
                 </Link>
               </li>
             </ul>
@@ -49,7 +49,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link href="/contact">
-                  <a className="text-gray-400 hover:text-white transition-colors">Contact Us</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">Contact Us</div>
                 </Link>
               </li>
               <li>
@@ -59,12 +59,12 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/api-docs">
-                  <a className="text-gray-400 hover:text-white transition-colors">API Documentation</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">API Documentation</div>
                 </Link>
               </li>
               <li>
                 <Link href="/privacy">
-                  <a className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                  <div className="text-gray-400 hover:text-white transition-colors cursor-pointer">Privacy Policy</div>
                 </Link>
               </li>
             </ul>

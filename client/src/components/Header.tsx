@@ -12,16 +12,16 @@ const Header = () => {
         </div>
         <nav className="flex flex-wrap justify-center space-x-1 sm:space-x-4">
           <Link href="/">
-            <a className="px-3 py-2 rounded-md text-sm font-medium text-primary-600 hover:bg-primary-50 transition duration-150">Home</a>
+            <div className="px-3 py-2 rounded-md text-sm font-medium text-primary-600 hover:bg-primary-50 transition duration-150 cursor-pointer">Home</div>
           </Link>
           <Link href="/discover">
-            <a className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition duration-150">Discover</a>
+            <div className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition duration-150 cursor-pointer">Discover</div>
           </Link>
           <Link href="/library">
-            <a className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition duration-150">My Library</a>
+            <div className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition duration-150 cursor-pointer">My Library</div>
           </Link>
           <Link href="/about">
-            <a className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition duration-150">About</a>
+            <div className="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition duration-150 cursor-pointer">About</div>
           </Link>
         </nav>
       </div>
